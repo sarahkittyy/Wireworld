@@ -38,8 +38,6 @@ int Application::run()
 		//Update ImGui...
 		ImGui::SFML::Update(mWindow, imgui_clock.restart());
 		//Draw to imgui...
-		ImGui::Begin("h");
-		ImGui::End();
 
 		//Stop drawing to imgui..
 		ImGui::EndFrame();
