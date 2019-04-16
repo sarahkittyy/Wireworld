@@ -82,8 +82,8 @@ void Wireworld::updateHUD()
 	//Update speed.
 	ss << "Interval - " << getSpeed().asSeconds() << "s\n";
 	ss << "Active Cells - " << mCells.size() << "\n";
-	ss << "Hovering: (" << getMousePos().x << ", " << getMousePos().y << ")\n";
-	ss << "Grid: (" << -mGrid.getPosition().x << ", " << -mGrid.getPosition().y << ")\n";
+	ss << "Hovering: (" << getFlooredMousePos().x << ", " << getFlooredMousePos().y << ")\n";
+	ss << std::fixed << std::setprecision(1) << "Grid: (" << -mGrid.getPosition().x << ", " << -mGrid.getPosition().y << ")\n";
 
 	mHUD.setString(ss.str());
 }

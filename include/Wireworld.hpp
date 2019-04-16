@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <algorithm>
+#include <iomanip>
 #include <sstream>
 #include <unordered_map>
 #include <vector>
