@@ -41,6 +41,10 @@ int Application::run()
 			case sf::Event::MouseButtonReleased:
 				mSimulation.onMouseRelease(event.mouseButton.button);
 				break;
+			case sf::Event::MouseWheelScrolled:
+				mSimulation.onMouseScroll(event.mouseWheelScroll.delta);
+				break;
+
 				//Wireworld keyboard events.
 			case sf::Event::KeyPressed:
 				mSimulation.onKeyPress(event.key.code);
