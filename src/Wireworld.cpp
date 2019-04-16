@@ -82,6 +82,8 @@ void Wireworld::updateHUD()
 	//Update speed.
 	ss << "Interval - " << getSpeed().asSeconds() << "s\n";
 	ss << "Active Cells - " << mCells.size() << "\n";
+	ss << "Hovering: (" << getMousePos().x << ", " << getMousePos().y << ")\n";
+	ss << "Grid: (" << mGrid.getPosition().x << ", " << mGrid.getPosition().y << ")\n";
 
 	mHUD.setString(ss.str());
 }
@@ -102,6 +104,7 @@ void Wireworld::updateMouse()
 	{
 		//Current mouse position.
 		sf::Vector2i cpos = sf::Vector2i(getMousePos());
+
 		//If it's not already logged...
 		if (std::find(mCellPlacement.log.begin(),
 					  mCellPlacement.log.end(),
@@ -149,8 +152,16 @@ void Wireworld::updateMouse()
 			{
 				t = Cell::NONE;
 			}
-			//Set the cell.
-			setCell(Cell(t, cpos));
+
+			//Set/Clear the cell
+			if (t == Cell::NONE)
+			{
+				clearCell(cpos);
+			}
+			else
+			{
+				setCell(Cell(t, cpos));
+			}
 		}
 	}
 }
@@ -327,11 +338,10 @@ void Wireworld::clearCell(sf::Vector2i pos)
 		if (i->getPosition() == pos)
 		{
 			mCells.erase(i);
+			mGrid.clearCell(pos);
 			return;
 		}
 	}
-
-	mGrid.clearCell(pos);
 }
 
 sf::Vector2f Wireworld::getMousePos(bool translate)
@@ -347,6 +357,9 @@ sf::Vector2f Wireworld::getMousePos(bool translate)
 		//Translate it by the grid's position.
 		pos -= mGrid.getPosition();
 	}
+
+	pos.x = std::floor(pos.x);
+	pos.y = std::floor(pos.y);
 
 	//Return it.
 	return pos;
