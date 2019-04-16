@@ -29,3 +29,7 @@ cd ..
 |Scroll| Zoom in/out.|
 |Left/Right Click| Change cell state. (empty/wire/head/tail) |
 |+ / -| Increase/Decrease simulation speed. |
+
+## Todo
+
+* Implement window resizing.
