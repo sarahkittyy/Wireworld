@@ -219,7 +219,7 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 		toggleRunning();
 	}
 	//+/- change the simulation speed.
-	else if (key == sf::Keyboard::Add)
+	else if (key == sf::Keyboard::Equal)
 	{
 		setSpeed(getSpeed() - sf::seconds(0.5f));
 	}
