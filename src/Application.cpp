@@ -1,7 +1,8 @@
 #include "Application.hpp"
 
 Application::Application()
-	: mWindow(sf::VideoMode(700, 700), "Wireworld")
+	: mWindow(sf::VideoMode(700, 700), "Wireworld"),
+	  mSimulation(&mWindow)
 {
 	//Initialize ImGui..
 	ImGui::SFML::Init(mWindow);
@@ -33,8 +34,26 @@ int Application::run()
 			case sf::Event::Resized:
 				mWindow.setSize({event.size.width, event.size.height});
 				break;
+				//Handle mouse events for Wireworld simul.
+			case sf::Event::MouseButtonPressed:
+				mSimulation.onMousePress(event.mouseButton.button);
+				break;
+			case sf::Event::MouseButtonReleased:
+				mSimulation.onMouseRelease(event.mouseButton.button);
+				break;
+				//Wireworld keyboard events.
+			case sf::Event::KeyPressed:
+				mSimulation.onKeyPress(event.key.code);
+				break;
+			case sf::Event::KeyReleased:
+				mSimulation.onKeyRelease(event.key.code);
+				break;
 			}
 		}
+
+		//Update the simulation.
+		mSimulation.update();
+
 		//Update ImGui...
 		ImGui::SFML::Update(mWindow, imgui_clock.restart());
 		//Draw to imgui...
@@ -45,6 +64,8 @@ int Application::run()
 		//Clear the window.
 		mWindow.clear(sf::Color::White);
 		//Draw here...
+
+		mWindow.draw(mSimulation);
 
 
 		//Render ImGui

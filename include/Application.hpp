@@ -6,6 +6,7 @@
 #include <imgui/imgui.h>
 
 #include "InfiniteGrid.hpp"
+#include "Wireworld.hpp"
 
 /**
  * @brief Base app class.
@@ -33,4 +34,10 @@ private:
 	 * 
 	 */
 	sf::RenderWindow mWindow;
+
+	/**
+	 * @brief The app wireworld simulation.
+	 * 
+	 */
+	Wireworld mSimulation;
 };
