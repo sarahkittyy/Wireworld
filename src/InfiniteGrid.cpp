@@ -17,6 +17,13 @@ InfiniteGrid::InfiniteGrid(sf::Vector2u window_size)
 	init();
 }
 
+void InfiniteGrid::updateWindowSize(sf::Vector2u new_size)
+{
+	mWindowSize = new_size;
+
+	update();
+}
+
 void InfiniteGrid::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 

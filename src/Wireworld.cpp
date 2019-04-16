@@ -16,6 +16,11 @@ Wireworld::Wireworld(sf::RenderWindow* window)
 	updateHUD();
 }
 
+void Wireworld::updateWindowSize(sf::Vector2u new_size)
+{
+	mGrid.updateWindowSize(new_size);
+}
+
 void Wireworld::toggleRunning()
 {
 	mRunning = !mRunning;

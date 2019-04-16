@@ -26,6 +26,13 @@ public:
 	Wireworld(sf::RenderWindow* window);
 
 	/**
+	 * @brief Called by the event handler on a window resize event.
+	 * 
+	 * @param new_size The new size of the window.
+	 */
+	void updateWindowSize(sf::Vector2u new_size);
+
+	/**
 	 * @brief Toggle if the simulation is running or not.
 	 * 
 	 */

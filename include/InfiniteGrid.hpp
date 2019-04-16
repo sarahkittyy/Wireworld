@@ -31,6 +31,13 @@ public:
 	InfiniteGrid(sf::Vector2u window_size);
 
 	/**
+	 * @brief Update the size of the window upon resizing.
+	 * 
+	 * @param new_size The new size of the window.
+	 */
+	void updateWindowSize(sf::Vector2u new_size);
+
+	/**
 	 * @brief Set the size of the rendered cell.
 	 * 
 	 * @param newSize The new cell size.

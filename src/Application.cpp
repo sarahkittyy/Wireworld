@@ -1,7 +1,9 @@
 #include "Application.hpp"
 
 Application::Application()
-	: mWindow(sf::VideoMode(700, 700), "Wireworld"),
+	: mWindow(sf::VideoMode(700, 700),
+			  "Wireworld",
+			  sf::Style::Titlebar | sf::Style::Close),
 	  mSimulation(&mWindow)
 {
 }
@@ -28,6 +30,7 @@ int Application::run()
 				break;
 			case sf::Event::Resized:
 				mWindow.setSize({event.size.width, event.size.height});
+				mSimulation.updateWindowSize(mWindow.getSize());
 				break;
 				//Handle mouse events for Wireworld simul.
 			case sf::Event::MouseButtonPressed:
