@@ -270,10 +270,16 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 	{
 		setSpeed(getSpeed() * 2.f);
 	}
+	//R- reset the grid.
 	else if (key == sf::Keyboard::R)
 	{
 		mCells.clear();
 		mGrid.clear();
+	}
+	//S - step forward one iteration.
+	else if (key == sf::Keyboard::S)
+	{
+		step();
 	}
 }
 
