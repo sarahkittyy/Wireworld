@@ -96,6 +96,12 @@ public:
 	 */
 	void clearCell(sf::Vector2i pos);
 
+	/**
+	 * @brief Clear the whole board.
+	 * 
+	 */
+	void clear();
+
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

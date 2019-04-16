@@ -230,6 +230,11 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 	{
 		setSpeed(getSpeed() + sf::seconds(0.5f));
 	}
+	else if(key == sf::Keyboard::R)
+	{
+		mCells.clear();
+		mGrid.clear();
+	}
 }
 
 void Wireworld::onKeyRelease(sf::Keyboard::Key key)

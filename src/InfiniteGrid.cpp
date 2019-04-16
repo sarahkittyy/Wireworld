@@ -217,3 +217,10 @@ void InfiniteGrid::clearCell(sf::Vector2i pos)
 					   return c.pos == pos;
 				   });
 }
+
+void InfiniteGrid::clear()
+{
+	mCells.clear();
+
+	update();
+}
