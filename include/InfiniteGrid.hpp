@@ -1,7 +1,9 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+
 #include <algorithm>
+#include <cmath>
 
 /**
  * @brief Renders an infinite grid of colored cells to the window.

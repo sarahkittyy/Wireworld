@@ -82,8 +82,8 @@ void InfiniteGrid::updateLines()
 
 	//Shift over by the position modulo the cell size, divided by the cell size.
 	mGridLineTransform.translate(
-		(mPosition.x * mCellSize),
-		(mPosition.y * mCellSize));
+		(int)(mPosition.x * mCellSize) % mCellSize,
+		(int)(mPosition.y * mCellSize) % mCellSize);
 
 	//Zoom in by the CellSize
 	mGridLineTransform.scale(mCellSize, mCellSize);
@@ -108,6 +108,9 @@ void InfiniteGrid::updateCells()
 
 		pos.x *= mCellSize;
 		pos.y *= mCellSize;
+
+		pos.x = std::floor(pos.x);
+		pos.y = std::floor(pos.y);
 
 		//Create a quad at the given position
 		mGridCells.append(sf::Vertex(
