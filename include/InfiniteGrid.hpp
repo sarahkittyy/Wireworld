@@ -35,7 +35,7 @@ public:
 	 * 
 	 * @param newSize The new cell size.
 	 */
-	void setCellSize(unsigned newSize);
+	void setCellSize(int newSize);
 
 	/**
 	 * @brief Get the size of each cell.

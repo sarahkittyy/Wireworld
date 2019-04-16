@@ -142,9 +142,19 @@ sf::Vector2f InfiniteGrid::getPosition()
 
 //CELL MANIP
 
-void InfiniteGrid::setCellSize(unsigned newSize)
+void InfiniteGrid::setCellSize(int newSize)
 {
 	mCellSize = newSize;
+
+	//Constrain the cell size.
+	if (mCellSize < 1)
+	{
+		mCellSize = 1;
+	}
+	else if (mCellSize > 500)
+	{
+		mCellSize = 500;
+	}
 
 	update();
 }
