@@ -12,9 +12,8 @@ endif()
 find_package(SFML 2.5 REQUIRED COMPONENTS graphics window audio network system)
 
 file(GLOB_RECURSE sources "src/*.cpp")
-file(GLOB_RECURSE sources_imgui "lib/imgui/*.cpp")
 
-add_executable(Wireworld ${sources} ${sources_imgui})
+add_executable(Wireworld ${sources})
 
-target_include_directories(Wireworld PUBLIC "include" "lib" "lib/imgui")
+target_include_directories(Wireworld PUBLIC "include")
 target_link_libraries(Wireworld sfml-graphics sfml-window sfml-network sfml-audio sfml-system GL)

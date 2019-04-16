@@ -21,6 +21,15 @@ bool Wireworld::isRunning()
 void Wireworld::setSpeed(sf::Time newSpeed)
 {
 	mSpeed = newSpeed;
+	//Constrain the new speed.
+	if (mSpeed < sf::seconds(0))
+	{
+		mSpeed = sf::seconds(0);
+	}
+	if (mSpeed > sf::seconds(10))
+	{
+		mSpeed = sf::seconds(10);
+	}
 }
 
 sf::Time Wireworld::getSpeed()
@@ -87,29 +96,41 @@ void Wireworld::step()
 
 void Wireworld::onMousePress(sf::Mouse::Button btn)
 {
+	//Only run this event if the mouse is in the winow.
 	if (!isMouseValid())
 	{
 		return;
 	}
-	if (btn == sf::Mouse::Left)
-	{
-		setCell(Cell(Cell::WIRE, getMousePos()));
-	}
-	else if (btn == sf::Mouse::Right)
-	{
-		setCell(Cell(Cell::HEAD, getMousePos()));
-	}
+
+	setCell(Cell(Cell::WIRE, getMousePos()));
 }
 
 void Wireworld::onMouseRelease(sf::Mouse::Button btn)
 {
 }
 
+void Wireworld::onMouseScroll(int delta)
+{
+	//Zoom the grid in/out.
+	mGrid.setCellSize(mGrid.getCellSize() + ((delta > 0) ? 1
+														 : -1));
+}
+
 void Wireworld::onKeyPress(sf::Keyboard::Key key)
 {
+	//Space pauses the application.
 	if (key == sf::Keyboard::Space)
 	{
 		toggleRunning();
+	}
+	//+/- change the simulation speed.
+	else if (key == sf::Keyboard::Add)
+	{
+		setSpeed(getSpeed() - sf::seconds(0.5f));
+	}
+	else if (key == sf::Keyboard::Subtract)
+	{
+		setSpeed(getSpeed() + sf::seconds(0.5f));
 	}
 }
 
