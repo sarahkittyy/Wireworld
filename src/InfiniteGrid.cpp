@@ -124,3 +124,83 @@ void InfiniteGrid::updateCells()
 			cell.col));
 	}
 }
+
+void InfiniteGrid::setPosition(sf::Vector2f newPos)
+{
+	mPosition = newPos;
+
+	update();
+}
+
+sf::Vector2f InfiniteGrid::getPosition()
+{
+	return mPosition;
+}
+
+//CELL MANIP
+
+void InfiniteGrid::setCellSize(unsigned newSize)
+{
+	mCellSize = newSize;
+
+	update();
+}
+
+unsigned InfiniteGrid::getCellSize()
+{
+	return mCellSize;
+}
+
+void InfiniteGrid::setCell(Cell c)
+{
+	//Check for a cell already at c.pos. If there is none, push to mCells.
+	if (!isCell(c.pos))
+	{
+		mCells.push_back(c);
+	}
+	else
+	{
+		//If this boilerplate gets excessive i'll refactor it
+		//otherwise, shush. I don't wanna return a pointer from getCell().
+		*(std::find_if(mCells.begin(), mCells.end(), [c](Cell& x) {
+			return x.pos == c.pos;
+		})) = c;
+	}
+
+	update();
+}
+
+bool InfiniteGrid::isCell(sf::Vector2i pos)
+{
+	//Try to find the cell.
+	auto found = std::find_if(mCells.begin(), mCells.end(),
+							  [pos](Cell& c) {
+								  return c.pos == pos;
+							  });
+
+	//Return if it was found or not.
+	return (found != mCells.end());
+}
+
+InfiniteGrid::Cell InfiniteGrid::getCell(sf::Vector2i pos)
+{
+	//If there isn't a cell, return a white cell @ 0,0 as a placeholder.
+	if (!isCell(pos))
+	{
+		return {.pos = {0, 0}, .col = sf::Color::White};
+	}
+
+	return *(std::find_if(mCells.begin(), mCells.end(),
+						  [pos](Cell& x) {
+							  return x.pos == pos;
+						  }));
+}
+
+void InfiniteGrid::clearCell(sf::Vector2i pos)
+{
+	//Remove the cell with the given position.
+	std::remove_if(mCells.begin(), mCells.end(),
+				   [pos](Cell& c) {
+					   return c.pos == pos;
+				   });
+}

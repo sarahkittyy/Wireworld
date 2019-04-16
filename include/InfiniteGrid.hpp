@@ -1,6 +1,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <algorithm>
 
 /**
  * @brief Renders an infinite grid of colored cells to the window.
@@ -10,13 +11,88 @@
 class InfiniteGrid : public sf::Drawable
 {
 public:
+	/**
+	 * @brief The cell's data structure.
+	 * 
+	 */
 	struct Cell
 	{
 		sf::Vector2i pos;
 		sf::Color col;
 	};
 
+	/**
+	 * @brief Initializes the grid.
+	 * 
+	 * @param window_size The size of the window to render to.
+	 */
 	InfiniteGrid(sf::Vector2u window_size);
+
+	/**
+	 * @brief Set the size of the rendered cell.
+	 * 
+	 * @param newSize The new cell size.
+	 */
+	void setCellSize(unsigned newSize);
+
+	/**
+	 * @brief Get the size of each cell.
+	 * 
+	 * @return unsigned The length of a side of a cell.
+	 */
+	unsigned getCellSize();
+
+	/**
+	 * @brief Set the top-left position of the grid.
+	 * 
+	 * @param newPos The position the grid should render from.
+	 * 
+	 * @remarks This is in cell coords, i.e. if the cell size is 16, 16 you do not need to enter {16, 16} to get to cell {1, 1}.
+	 */
+	void setPosition(sf::Vector2f newPos);
+
+	/**
+	 * @brief Get the position of the grid.
+	 * 
+	 * @return sf::Vector2i The top-left coordinate of the (rendered) part of the grid.
+	 * 
+	 * @remarks This is in cell coords, i.e. *cell* (5, 5), and not screen coords.
+	 */
+	sf::Vector2f getPosition();
+
+	/**
+	 * @brief Either push the new cell, or update the cell that already exists, if it's there.
+	 * 
+	 * @param c The cell to add/update.
+	 */
+	void setCell(Cell c);
+
+	/**
+	 * @brief Check if there's a cell at the given position.
+	 * 
+	 * @param pos The position to check.
+	 * @return true If there is a cell there.
+	 * @return false If the square is empty.
+	 */
+	bool isCell(sf::Vector2i pos);
+
+	/**
+	 * @brief Get the cell located at the given position.
+	 * 
+	 * @param pos The position.
+	 * @return Cell The cell at `pos`
+	 * 
+	 * @remarks Returns a white cell @ 0,0 if there is none. 
+	 * Use isCell(pos) to check if there's a cell there in the first place.
+	 */
+	Cell getCell(sf::Vector2i pos);
+
+	/**
+	 * @brief Remove the cell at the given position, if it exists.
+	 * 
+	 * @param pos 
+	 */
+	void clearCell(sf::Vector2i pos);
 
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
