@@ -183,9 +183,10 @@ private:
 	/**
 	 * @brief Get the position of the mouse as a cell position, not a window position.
 	 * 
-	 * @return sf::Vector2i The cell the mouse is hovering over.
+	 * @param translate True if the position should be translated by the grid's position.
+	 * @return sf::Vector2f The cell the mouse is hovering over.
 	 */
-	sf::Vector2i getMousePos();
+	sf::Vector2f getMousePos(bool translate = true);
 
 	/**
 	 * @brief Check if the mouse is inside the viewable window.
@@ -214,4 +215,33 @@ private:
 	bool mRunning;
 
 	//////////////////EXTRAS////////////////
+
+	/**
+	 * @brief Handles mouse updates using mCellPlacement & mMousePan.
+	 * 
+	 */
+	void updateMouse();
+
+	/**
+	 * @brief Stores info on when and where the mouse
+	 * is when clicking & dragging.
+	 * 
+	 */
+	struct
+	{
+		bool mouseHeld = false;
+		std::vector<sf::Vector2i> log;
+		sf::Mouse::Button btn;
+	} mCellPlacement;
+
+	/**
+	 * @brief Stores info while the middle-mouse button is held (window panning)
+	 * 
+	 */
+	struct
+	{
+		bool mouseHeld = false;
+		sf::Vector2f initialMouse;
+		sf::Vector2f initialGrid;
+	} mMousePan;
 };

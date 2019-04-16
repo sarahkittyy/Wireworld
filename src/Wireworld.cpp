@@ -39,6 +39,9 @@ sf::Time Wireworld::getSpeed()
 
 void Wireworld::update()
 {
+	//Update mouse input handlers.
+	updateMouse();
+
 	//If we're not running, break.
 	if (!mRunning)
 	{
@@ -50,6 +53,78 @@ void Wireworld::update()
 	{
 		step();
 		mClock.restart();
+	}
+}
+
+void Wireworld::updateMouse()
+{
+	//First, mouse panning.
+	if (mMousePan.mouseHeld)
+	{
+		//Get the current displacement from the clicked pos.
+		sf::Vector2f cpos = getMousePos(false) - mMousePan.initialMouse;
+		//Set the grid's position to that.
+		mGrid.setPosition(mMousePan.initialGrid + cpos);
+	}
+
+	//Next, mouse cell placement.
+	if (mCellPlacement.mouseHeld)
+	{
+		//Current mouse position.
+		sf::Vector2i cpos = sf::Vector2i(getMousePos());
+		//If it's not already logged...
+		if (std::find(mCellPlacement.log.begin(),
+					  mCellPlacement.log.end(),
+					  cpos) == mCellPlacement.log.end())
+		{
+			//Log it, and set the cell there.
+			mCellPlacement.log.push_back(cpos);
+			//The cell type already there.
+			Cell::Type t		  = getCell(cpos).getType();
+			sf::Mouse::Button btn = mCellPlacement.btn;
+			if (t == Cell::NONE)
+			{
+				if (btn == sf::Mouse::Left)
+				{
+					t = Cell::WIRE;
+				}
+				else
+				{
+					t = Cell::HEAD;
+				}
+			}
+			else if (t == Cell::WIRE)
+			{
+				if (btn == sf::Mouse::Left)
+				{
+					t = Cell::NONE;
+				}
+				else
+				{
+					t = Cell::TAIL;
+				}
+			}
+			else if (t == Cell::HEAD)
+			{
+				if (btn == sf::Mouse::Left)
+				{
+					t = Cell::NONE;
+				}
+				else
+				{
+					t = Cell::TAIL;
+				}
+			}
+			else if (t == Cell::TAIL)
+			{
+				if (btn == sf::Mouse::Left)
+				{
+					t = Cell::NONE;
+				}
+			}
+			//Set the cell.
+			setCell(Cell(t, cpos));
+		}
 	}
 }
 
@@ -102,11 +177,34 @@ void Wireworld::onMousePress(sf::Mouse::Button btn)
 		return;
 	}
 
-	setCell(Cell(Cell::WIRE, getMousePos()));
+	//If it's the middle mouse...
+	if (btn == sf::Mouse::Middle)
+	{
+		mMousePan.mouseHeld	= true;
+		mMousePan.initialMouse = getMousePos(false);
+		mMousePan.initialGrid  = mGrid.getPosition();
+	}
+	//Otherwise..
+	else
+	{
+		//Reset n toggle cell placement.
+		mCellPlacement.mouseHeld = true;
+		mCellPlacement.log.clear();
+		mCellPlacement.btn = btn;
+	}
 }
 
 void Wireworld::onMouseRelease(sf::Mouse::Button btn)
 {
+	//Stop panning if it's the middle mouse button released.
+	if (btn == sf::Mouse::Middle)
+	{
+		mMousePan.mouseHeld = false;
+	}
+	else
+	{
+		mCellPlacement.mouseHeld = false;
+	}
 }
 
 void Wireworld::onMouseScroll(int delta)
@@ -204,7 +302,7 @@ void Wireworld::clearCell(sf::Vector2i pos)
 	mGrid.clearCell(pos);
 }
 
-sf::Vector2i Wireworld::getMousePos()
+sf::Vector2f Wireworld::getMousePos(bool translate)
 {
 	sf::Vector2f pos = (sf::Vector2f)sf::Mouse::getPosition(*mWindow);
 
@@ -212,11 +310,14 @@ sf::Vector2i Wireworld::getMousePos()
 	pos.x /= mGrid.getCellSize();
 	pos.y /= mGrid.getCellSize();
 
-	//Translate it by the grid's position.
-	pos -= mGrid.getPosition();
+	if (translate)
+	{
+		//Translate it by the grid's position.
+		pos -= mGrid.getPosition();
+	}
 
 	//Return it.
-	return sf::Vector2i(pos);
+	return pos;
 }
 
 bool Wireworld::isMouseValid()
