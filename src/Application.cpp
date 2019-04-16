@@ -4,8 +4,6 @@ Application::Application()
 	: mWindow(sf::VideoMode(700, 700), "Wireworld"),
 	  mSimulation(&mWindow)
 {
-	//Initialize ImGui..
-	ImGui::SFML::Init(mWindow);
 }
 
 int Application::run()
@@ -20,9 +18,6 @@ int Application::run()
 		sf::Event event;
 		while (mWindow.pollEvent(event))
 		{
-			//Process ImGui events.
-			ImGui::SFML::ProcessEvent(event);
-
 			//SFML events..
 			switch (event.type)
 			{
@@ -58,22 +53,12 @@ int Application::run()
 		//Update the simulation.
 		mSimulation.update();
 
-		//Update ImGui...
-		ImGui::SFML::Update(mWindow, imgui_clock.restart());
-		//Draw to imgui...
-
-		//Stop drawing to imgui..
-		ImGui::EndFrame();
-
 		//Clear the window.
 		mWindow.clear(sf::Color::White);
 		//Draw here...
 
 		mWindow.draw(mSimulation);
 
-
-		//Render ImGui
-		ImGui::SFML::Render(mWindow);
 		//Finish drawing.
 		mWindow.display();
 	}

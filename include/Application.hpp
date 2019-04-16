@@ -2,9 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <imgui/imgui-SFML.h>
-#include <imgui/imgui.h>
-
 #include "InfiniteGrid.hpp"
 #include "Wireworld.hpp"
 
