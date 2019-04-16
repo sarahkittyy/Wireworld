@@ -97,7 +97,7 @@ void InfiniteGrid::updateCells()
 	for (auto& cell : mCells)
 	{
 		//The actual position of the cell is cell.pos - mPosition
-		sf::Vector2f pos = sf::Vector2f(cell.pos) - mPosition;
+		sf::Vector2f pos = sf::Vector2f(cell.pos) + mPosition;
 
 		//Ignore if we're out of bounds.
 		sf::FloatRect bounds(-5, -5, mWindowSize.x / mCellSize + 5, mWindowSize.y / mCellSize + 5);
