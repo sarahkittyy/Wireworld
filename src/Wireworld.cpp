@@ -273,8 +273,22 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 	//R- reset the grid.
 	else if (key == sf::Keyboard::R)
 	{
-		mCells.clear();
-		mGrid.clear();
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
+		{
+			//Hard reset.
+			mCells.clear();
+			mGrid.clear();
+		}
+		else   //Soft reset
+		{
+			for (auto& cell : mCells)
+			{
+				if (cell.getType() != Cell::WIRE)
+				{
+					setCell(Cell(Cell::WIRE, cell.getPosition()));
+				}
+			}
+		}
 	}
 	//S - step forward one iteration.
 	else if (key == sf::Keyboard::S)
