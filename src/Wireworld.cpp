@@ -221,11 +221,11 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 	//+/- change the simulation speed.
 	else if (key == sf::Keyboard::Equal)
 	{
-		setSpeed(getSpeed() - sf::seconds(0.5f));
+		setSpeed(getSpeed() - sf::seconds(0.1f));
 	}
-	else if (key == sf::Keyboard::Subtract)
+	else if (key == sf::Keyboard::Hyphen)
 	{
-		setSpeed(getSpeed() + sf::seconds(0.5f));
+		setSpeed(getSpeed() + sf::seconds(0.1f));
 	}
 	else if (key == sf::Keyboard::R)
 	{
