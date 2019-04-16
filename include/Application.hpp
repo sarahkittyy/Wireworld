@@ -5,6 +5,8 @@
 #include <imgui/imgui-SFML.h>
 #include <imgui/imgui.h>
 
+#include "InfiniteGrid.hpp"
+
 /**
  * @brief Base app class.
  * 
