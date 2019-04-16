@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <algorithm>
+#include <sstream>
 #include <unordered_map>
 #include <vector>
 
@@ -213,6 +214,26 @@ private:
 	 * 
 	 */
 	bool mRunning;
+
+	///////////////TEXT////////////////////
+
+	/**
+	 * @brief Text displayed in the top-left corner.
+	 * 
+	 */
+	sf::Text mHUD;
+
+	/**
+	 * @brief The HUD's font.
+	 * 
+	 */
+	sf::Font mHUDFont;
+
+	/**
+	 * @brief Update the displayed text.
+	 *
+	 */
+	void updateHUD();
 
 	//////////////////EXTRAS////////////////
 

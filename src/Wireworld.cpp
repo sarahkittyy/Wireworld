@@ -6,6 +6,14 @@ Wireworld::Wireworld(sf::RenderWindow* window)
 	  mSpeed(sf::seconds(1)),
 	  mRunning(false)
 {
+	//Init the HUD.
+	mHUDFont.loadFromFile("resource/font.ttf");
+	mHUD.setFont(mHUDFont);
+	mHUD.setFillColor(sf::Color::Black);
+	mHUD.setOutlineColor(sf::Color::Black);
+	mHUD.setCharacterSize(20);
+	mHUD.setPosition(5, 5);
+	updateHUD();
 }
 
 void Wireworld::toggleRunning()
@@ -42,6 +50,9 @@ void Wireworld::update()
 	//Update mouse input handlers.
 	updateMouse();
 
+	//Update the HUD.
+	updateHUD();
+
 	//If we're not running, break.
 	if (!mRunning)
 	{
@@ -54,6 +65,20 @@ void Wireworld::update()
 		step();
 		mClock.restart();
 	}
+}
+
+void Wireworld::updateHUD()
+{
+	//The HUD's output.
+	std::stringstream ss;
+
+	//Running or not.
+	ss << std::boolalpha << "Paused - " << !isRunning() << "\n";
+	//Update speed.
+	ss << "Interval - " << getSpeed().asSeconds() << "s\n";
+	ss << "Active Cells - " << mCells.size() << "\n";
+
+	mHUD.setString(ss.str());
 }
 
 void Wireworld::updateMouse()
@@ -221,11 +246,11 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 	//+/- change the simulation speed.
 	else if (key == sf::Keyboard::Equal)
 	{
-		setSpeed(getSpeed() - sf::seconds(0.1f));
+		setSpeed(getSpeed() / 2.f);
 	}
 	else if (key == sf::Keyboard::Hyphen)
 	{
-		setSpeed(getSpeed() + sf::seconds(0.1f));
+		setSpeed(getSpeed() * 2.f);
 	}
 	else if (key == sf::Keyboard::R)
 	{
@@ -335,4 +360,5 @@ bool Wireworld::isMouseValid()
 void Wireworld::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(mGrid, states);
+	target.draw(mHUD, states);
 }
