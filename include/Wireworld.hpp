@@ -197,6 +197,14 @@ private:
 	sf::Vector2f getMousePos(bool translate = true);
 
 	/**
+	 * @brief Get the floored position of the mouse as a cell position, not a window position.
+	 * 
+	 * @param translate True if the position should be translated by the grid's position.
+	 * @return sf::Vector2f The cell the mouse is hovering over.
+	 */
+	sf::Vector2f getFlooredMousePos(bool translate = true);
+
+	/**
 	 * @brief Check if the mouse is inside the viewable window.
 	 * 
 	 * @return true If the mouse is inside the window.

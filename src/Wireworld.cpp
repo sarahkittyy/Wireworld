@@ -103,7 +103,7 @@ void Wireworld::updateMouse()
 	if (mCellPlacement.mouseHeld)
 	{
 		//Current mouse position.
-		sf::Vector2i cpos = sf::Vector2i(getMousePos());
+		sf::Vector2i cpos = sf::Vector2i(getFlooredMousePos());
 
 		//If it's not already logged...
 		if (std::find(mCellPlacement.log.begin(),
@@ -360,11 +360,14 @@ sf::Vector2f Wireworld::getMousePos(bool translate)
 		pos -= mGrid.getPosition();
 	}
 
-	pos.x = std::floor(pos.x);
-	pos.y = std::floor(pos.y);
-
 	//Return it.
 	return pos;
+}
+
+sf::Vector2f Wireworld::getFlooredMousePos(bool translate)
+{
+	//Return it.
+	return sf::Vector2f(std::floor(getMousePos().x), std::floor(getMousePos().y));
 }
 
 bool Wireworld::isMouseValid()
