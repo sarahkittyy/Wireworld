@@ -13,6 +13,10 @@ mkdir build
 cd build
 cmake ..
 make
+
+cd ..
+./build/Wireworld
+# Make sure that `resource/` is in the working directory of Wireworld!
 ```
 
 ## Controls
