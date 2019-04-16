@@ -83,7 +83,7 @@ void Wireworld::updateHUD()
 	ss << "Interval - " << getSpeed().asSeconds() << "s\n";
 	ss << "Active Cells - " << mCells.size() << "\n";
 	ss << "Hovering: (" << getMousePos().x << ", " << getMousePos().y << ")\n";
-	ss << "Grid: (" << mGrid.getPosition().x << ", " << mGrid.getPosition().y << ")\n";
+	ss << "Grid: (" << -mGrid.getPosition().x << ", " << -mGrid.getPosition().y << ")\n";
 
 	mHUD.setString(ss.str());
 }
@@ -115,6 +115,7 @@ void Wireworld::updateMouse()
 			//The cell type already there.
 			Cell::Type t		  = getCell(cpos).getType();
 			sf::Mouse::Button btn = mCellPlacement.btn;
+
 			if (t == Cell::NONE)
 			{
 				if (btn == sf::Mouse::Left)
@@ -242,6 +243,7 @@ void Wireworld::onMouseRelease(sf::Mouse::Button btn)
 	else
 	{
 		mCellPlacement.mouseHeld = false;
+		mCellPlacement.log.clear();
 	}
 }
 

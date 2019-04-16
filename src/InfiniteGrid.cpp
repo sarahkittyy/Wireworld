@@ -219,12 +219,15 @@ InfiniteGrid::Cell InfiniteGrid::getCell(sf::Vector2i pos)
 void InfiniteGrid::clearCell(sf::Vector2i pos)
 {
 	//Remove the cell with the given position.
-	std::remove_if(mCells.begin(), mCells.end(),
-				   [pos](Cell& c) {
-					   return c.pos == pos;
-				   });
-
-	update();
+	for (auto i = mCells.begin(); i != mCells.end(); ++i)
+	{
+		if (i->pos == pos)
+		{
+			mCells.erase(i);
+			update();
+			return;
+		}
+	}
 }
 
 void InfiniteGrid::clear()
