@@ -81,6 +81,13 @@ public:
 	void onMouseRelease(sf::Mouse::Button btn);
 
 	/**
+	 * @brief Called on every mouse scroll.
+	 * 
+	 * @param delta The change in mouse scroll.
+	 */
+	void onMouseScroll(int delta);
+
+	/**
 	 * @brief Called on every key press.
 	 * 
 	 * @param key The key pressed.
@@ -93,6 +100,8 @@ public:
 	 * @param key The key released.
 	 */
 	void onKeyRelease(sf::Keyboard::Key key);
+
+	//////////////////////////////////
 
 	/**
 	 * @brief Either push the new cell, or update the cell that already exists, if it's there.
@@ -203,4 +212,6 @@ private:
 	 * 
 	 */
 	bool mRunning;
+
+	//////////////////EXTRAS////////////////
 };
