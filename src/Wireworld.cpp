@@ -101,7 +101,7 @@ void Wireworld::updateMouse()
 				}
 				else
 				{
-					t = Cell::TAIL;
+					t = Cell::HEAD;
 				}
 			}
 			else if (t == Cell::HEAD)
@@ -117,10 +117,7 @@ void Wireworld::updateMouse()
 			}
 			else if (t == Cell::TAIL)
 			{
-				if (btn == sf::Mouse::Left)
-				{
-					t = Cell::NONE;
-				}
+				t = Cell::NONE;
 			}
 			//Set the cell.
 			setCell(Cell(t, cpos));
@@ -230,7 +227,7 @@ void Wireworld::onKeyPress(sf::Keyboard::Key key)
 	{
 		setSpeed(getSpeed() + sf::seconds(0.5f));
 	}
-	else if(key == sf::Keyboard::R)
+	else if (key == sf::Keyboard::R)
 	{
 		mCells.clear();
 		mGrid.clear();
