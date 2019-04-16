@@ -159,7 +159,7 @@ void InfiniteGrid::setCellSize(int newSize)
 	update();
 }
 
-unsigned InfiniteGrid::getCellSize()
+int InfiniteGrid::getCellSize()
 {
 	return mCellSize;
 }

@@ -40,9 +40,9 @@ public:
 	/**
 	 * @brief Get the size of each cell.
 	 * 
-	 * @return unsigned The length of a side of a cell.
+	 * @return int The length of a side of a cell.
 	 */
-	unsigned getCellSize();
+	int getCellSize();
 
 	/**
 	 * @brief Set the top-left position of the grid.
@@ -161,7 +161,7 @@ private:
 	 * @brief The size of each cell to render.
 	 * 
 	 */
-	unsigned mCellSize;
+	int mCellSize;
 
 	/**
 	 * @brief Grid position, by cells.
