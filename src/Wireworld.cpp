@@ -11,7 +11,7 @@ Wireworld::Wireworld(sf::RenderWindow* window)
 	mHUD.setFont(mHUDFont);
 	mHUD.setFillColor(sf::Color::Black);
 	mHUD.setOutlineColor(sf::Color::Black);
-	mHUD.setCharacterSize(20);
+	mHUD.setCharacterSize(18);
 	mHUD.setPosition(5, 5);
 	updateHUD();
 }
