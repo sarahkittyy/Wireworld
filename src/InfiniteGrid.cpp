@@ -103,7 +103,7 @@ void InfiniteGrid::updateCells()
 	//Iterate over all cells.
 	for (auto& cell : mCells)
 	{
-		//The actual position of the cell is cell.pos - mPosition
+		//The actual position of the cell is cell.pos + mPosition
 		sf::Vector2f pos = sf::Vector2f(cell.pos) + mPosition;
 
 		//Ignore if we're out of bounds.
@@ -223,6 +223,8 @@ void InfiniteGrid::clearCell(sf::Vector2i pos)
 				   [pos](Cell& c) {
 					   return c.pos == pos;
 				   });
+
+	update();
 }
 
 void InfiniteGrid::clear()
